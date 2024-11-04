@@ -8,5 +8,6 @@ namespace HW11.Container
 {
     public interface ICategoryRepository
     {
+        void Get(int id);
     }
 }

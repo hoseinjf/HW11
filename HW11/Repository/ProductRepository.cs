@@ -1,4 +1,9 @@
-﻿using HW11.Container;
+﻿using Dapper;
+using HW11.Confige;
+using HW11.Container;
+using HW11.Entity;
+using HW11.Queries;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,29 +14,44 @@ namespace HW11.Repository
 {
     public class ProductRepository : IProductRepository
     {
-        public void Add()
+        public void Add(Product product)
         {
-            throw new NotImplementedException();
+            using (var conetion = new SqlConnection(DatabaseConfige.ConnectionString))
+            {
+                conetion.Execute(ProductQueries.Add, new { product.Name, product.Price, product.CategoryId });
+            }
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var conetion = new SqlConnection(DatabaseConfige.ConnectionString))
+            {
+                conetion.Execute(ProductQueries.Delete, new {Id=id});
+            }
         }
 
-        public void Get(int id)
+        public Product Get(int id)
         {
-            throw new NotImplementedException();
+            using (var conetion = new SqlConnection(DatabaseConfige.ConnectionString))
+            {
+                return conetion.QueryFirstOrDefault<Product>(ProductQueries.Get, new { Id = id });
+            }
         }
 
-        public void GetAll()
+        public List<Product> GetAll()
         {
-            throw new NotImplementedException();
+            using (var conetion = new SqlConnection(DatabaseConfige.ConnectionString))
+            {
+                return conetion.Query<Product>(ProductQueries.GetAll).ToList();
+            }
         }
 
-        public void Update(int id)
+        public void Update(Product product)
         {
-            throw new NotImplementedException();
+            using (var conetion = new SqlConnection(DatabaseConfige.ConnectionString))
+            {
+                conetion.Execute(ProductQueries.Update, new {product.Id, product.Name, product.Price, product.CategoryId });
+            }
         }
     }
 }
