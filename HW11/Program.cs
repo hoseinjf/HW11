@@ -81,9 +81,11 @@ while (isRun)
                 break;
         }
     }
-    catch
+    catch(Exception ex)
     {
-        Console.WriteLine("just enter nomber");
+        Console.WriteLine("just enter nomber\n"+ex);
+        Console.ReadKey();
+        Console.Clear();
     }
 }
 
