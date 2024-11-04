@@ -11,10 +11,8 @@ namespace HW11.Queries
     public static class ProductQueries
     {
         public static string Add = "insert into Products(Name,Price,CategoryId)values(@Name,@Price,@CategoryId)";
-        //public static string Get = "select* from Products p join Categories on Categories.Id=CategoryId where Id=@id";
-        public static string Get = "select* from Products where Id=@id";
-        //public static string GetAll = "select Products.Id,Products.Name,Products.Price,Categories.Name from Products  join Categories on Categories.Id=Products.CategoryId";
-        public static string GetAll = "select * from Products ";
+        public static string Get = "select p.Name,p.Price, c.Name as category from Products p join Categories c on c.Id=CategoryId  where p.Id=@id";
+        public static string GetAll = "select Products.Name,Products.Price,Categories.Name as category from Products  join Categories on Categories.Id=Products.CategoryId";
         public static string Delete = "delete Products WHERE Id = @id";
         public static string Update = "UPDATE Products SET Name=@Name , Price=@Price , CategoryId=@CategoryId WHERE Id = @Id";
 
